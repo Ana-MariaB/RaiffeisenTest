@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#b73328</color>
+    <color name="colorPrimaryDark">#b73328</color>
+    <color name="colorAccent">#b73328</color>
+    <color name="toolbarColor">#c94038</color>
+    <color name="floatingButtonColor">#d74c44</color>
+    <color name="colorPrimaryDetails">#0d6063</color>
+    <color name="detailsColor">#1897a6</color>
+    <color name="background">#EFEFEF</color>
+    <color name="placeholder_grey">#AAADC4</color>
+    <color name="placeholder_grey_20">#33AAADC4</color>
+    <color name="black_text">#212121</color>
+    <color name="grey_text">#727272</color>
+    <color name="item_divider_color">#B6B6B6</color>
+    <color name="item_progress_color">#fafafa</color>
+</resources>

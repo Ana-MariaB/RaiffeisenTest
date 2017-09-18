@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.androidveteran.android.materialprofile.ProfileActivity">
+
+    <item
+        android:id="@+id/action_star"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        android:icon="@drawable/icon_star24"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_write"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        android:icon="@drawable/icon_pencil24"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        android:icon="@drawable/icon_overflow24"
+        app:showAsAction="always"/>
+
+
+
+
+</menu>
