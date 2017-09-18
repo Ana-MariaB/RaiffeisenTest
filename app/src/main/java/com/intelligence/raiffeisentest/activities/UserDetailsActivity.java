@@ -1,13 +1,10 @@
 package com.intelligence.raiffeisentest.activities;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -17,7 +14,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -56,6 +52,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     private int mShortAnimationDuration;
     private Drawable mUploadedPic;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +62,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         View layoutDetails = findViewById(R.id.layoutUserDetails);
         mLocationLayout = (RelativeLayout) layoutDetails.findViewById(R.id.locationLayout);
+        RelativeLayout emailLayout = (RelativeLayout) layoutDetails.findViewById(R.id.emailLayout);
         mCallPhone = (RelativeLayout) layoutDetails.findViewById(R.id.layoutCallPhone);
         mCallCell = (RelativeLayout) layoutDetails.findViewById(R.id.layoutCallCell);
         mUserProfilePicture = (CircleImageView) findViewById(R.id.userProfilePicture);
@@ -105,10 +103,13 @@ public class UserDetailsActivity extends AppCompatActivity {
         mLocationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q= " + capitalize(mUserModel.getmLocationModel().getmStreet()) /*+ "+" + mUserModel.getmLocationModel().getmCity() + "+" + mUserModel.getmLocationModel().getmState()*/);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
+                String userAddress = mUserModel.getmLocationModel().getmStreet();
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q=" + userAddress));
+                intent.setPackage("com.google.android.apps.maps");
+
+                startActivity(intent);
+
             }
         });
 
@@ -155,6 +156,13 @@ public class UserDetailsActivity extends AppCompatActivity {
                 android.R.integer.config_shortAnimTime
         );
 
+        emailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendEmail();
+            }
+        });
+
 
     }
 
@@ -189,13 +197,11 @@ public class UserDetailsActivity extends AppCompatActivity {
 
 
     public void call(String number) {
-        IntentFilter filter = new IntentFilter("android.intent.action.PHONE_STATE");
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
 
-        callIntent.setData(Uri.parse("tel:" + number.replace("-", "")));
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
+
+        Uri callUri = Uri.parse("tel:" + number.replace("-", ""));
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, callUri);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(callIntent);
     }
 
@@ -348,4 +354,11 @@ public class UserDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void sendEmail() {
+        Intent sendEmailIntent = new Intent(UserDetailsActivity.this, SendEmailActivity.class);
+        startActivity(sendEmailIntent);
+    }
+
+
 }
